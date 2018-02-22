@@ -1,5 +1,9 @@
 {
+    "autoload": {
+        "psr-4": {"App\\": "src/"}
+    },
     "require": {
-        "symfony/class-loader": "^3.4"
+        "silex/silex": "~2.0",
+        "doctrine/dbal": "~2.2"
     }
 }
