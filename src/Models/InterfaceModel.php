@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-class Test
+
+interface InterfaceModel
 {
 
 }
