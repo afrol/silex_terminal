@@ -13,8 +13,8 @@ trait Singleton
 
     private function __wakeup() { }
 
-    static public function getInstance($params = null)
+    static public function getInstance()
     {
-        return self::$instance === null ? self::$instance = new static($params) : self::$instance;
+        return self::$instance === null ? self::$instance = new static() : self::$instance;
     }
 }

@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-use App\Db\Repository;
 
-class Terminal extends Repository
+class Terminal extends BaseModel implements InterfaceModel
 {
     protected $table = 'oc_product';
 
     public function getAll()
     {
-        return $this->query('SELECT * FROM oc_product');
+        $query = 'SELECT * FROM '.$this->table;
+        return $this->db->fetchAssoc($query, []);
     }
 
+    public function save(array $request)
+    {
+        return true;
+    }
 }
