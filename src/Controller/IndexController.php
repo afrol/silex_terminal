@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Models\Manufacturer;
-use App\Models\Branch;
-
-use App\Models\Terminal;
+use App\Traits\ModelList;
 use Silex\Application;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\{
     TextType
 };
 
-
 class IndexController extends BaseController
 {
+    use ModelList;
+
     public static $path = 'index';
     public static $active = 'index';
     public static $model = 'App\\Models\\Terminal';
@@ -76,20 +74,5 @@ class IndexController extends BaseController
             ])
             ->add('save', SubmitType::class, array('label' => 'Create Terminal'))
             ->getForm();
-    }
-
-    protected function getBranchList($db)
-    {
-        return (new Branch($db))->getBranchList();
-    }
-
-    protected function getManufacturerList($db)
-    {
-        return (new Manufacturer($db))->getManufacturerList();
-    }
-
-    protected function getTerminalStatusList()
-    {
-        return array_combine(Terminal::getStatus(), Terminal::getStatus());
     }
 }

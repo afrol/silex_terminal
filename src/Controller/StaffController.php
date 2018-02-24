@@ -10,10 +10,12 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-use App\Models\Branch;
+use App\Traits\ModelList;
 
 class StaffController extends BaseController
 {
+    use ModelList;
+
     public static $path = 'staff';
     public static $active = 'staff';
     public static $model = 'App\\Models\\Staff';
@@ -65,10 +67,5 @@ class StaffController extends BaseController
             ->add('lastName', TextType::class)
             ->add('save', SubmitType::class, array('label' => 'Create Staff'))
             ->getForm();
-    }
-
-    protected function getBranchList($db)
-    {
-        return (new Branch($db))->getBranchList();
     }
 }
