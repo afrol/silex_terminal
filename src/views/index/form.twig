@@ -1,0 +1,13 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'index_form' %}
+{% block title %}Terminal form{% endblock %}
+{% block content %}
+    <h2>Terminal create</h2>
+
+    <form action="/" method="post">
+        {{ form_widget(form) }}
+
+        <input type="submit" name="submit" />
+    </form>
+
+{% endblock %}

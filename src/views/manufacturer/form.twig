@@ -1,0 +1,13 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'manufacturer_form' %}
+{% block title %}Manufacturer form{% endblock %}
+{% block content %}
+    <h2>Manufacturer create</h2>
+
+    <form action="/manufacturer/" method="post">
+        {{ form_widget(form) }}
+
+        <input type="submit" name="submit" />
+    </form>
+
+{% endblock %}

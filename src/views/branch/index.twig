@@ -1,0 +1,45 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'branch' %}
+{% block title %}Branch info{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Branch</h2>
+            <p>Содержит таблицу терминалов с информацией о их подразделений:</p>
+            <a href="/branch/form" class="btn btn-info" role="button">Create branch</a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>createAt</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in result %}
+                <tr>
+                    <td>{{ item.branchId }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.create_at }}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

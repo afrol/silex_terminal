@@ -1,0 +1,13 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'staff_form' %}
+{% block title %}Staff form{% endblock %}
+{% block content %}
+    <h2>Staff create</h2>
+
+    <form action="/staff/" method="post">
+        {{ form_widget(form) }}
+
+        <input type="submit" name="submit" />
+    </form>
+
+{% endblock %}

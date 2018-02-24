@@ -7,7 +7,7 @@ CREATE TABLE `Terminal` (
   `status` enum('stock', 'transport', 'installed', 'active', 'deactivated') NOT NULL DEFAULT 'stock',
   `createAt` datetime DEFAULT NULL,
   `updateAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY(`autoinrcement_id`),
+  PRIMARY KEY(`terminalId`),
   KEY `code` (`code`),
   KEY `branchId` (`branchId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

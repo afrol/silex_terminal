@@ -1,0 +1,45 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'manufacturer' %}
+{% block title %}Manufacturer info{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Manufacturer</h2>
+            <p>Служат для определения принадлежности терминала/сотрудника к областному центру:</p>
+            <a href="/manufacturer/form" class="btn btn-info" role="button">Create Manufacturer</a>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>createAt</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in result %}
+                <tr>
+                    <td>{{ item.manufacturerId }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.create_at }}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

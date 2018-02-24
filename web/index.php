@@ -10,7 +10,11 @@ define('PATH_CONFIG', __DIR__.'/../config');
 // Autoloader
 require PATH_VENDOR .'/autoload.php';
 
-$config = require PATH_CONFIG .'/dev.php';
+switch (getenv('ENVIRONMENT')) {
+    case 'web': $config = require PATH_CONFIG .'/web.php'; break;
+    case 'dev2': $config = require PATH_CONFIG .'/dev2.php'; break;
+    default: $config = require PATH_CONFIG .'/dev.php'; break;
+}
 
 $app = new Silex\Application($config);
 

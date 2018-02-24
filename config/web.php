@@ -3,6 +3,8 @@
 return [
     'locale' => 'en',
 
+    'basepath' => '/',
+
     'db.options' => [
         'driver'	=> 'pdo_mysql',
         'host'		=> 'localhost',

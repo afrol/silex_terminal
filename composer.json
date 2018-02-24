@@ -6,6 +6,10 @@
         "silex/silex": "~2.0",
         "doctrine/dbal": "~2.2",
         "twig/twig": "^2.4",
-        "twbs/bootstrap": "4.0.0"
+        "twbs/bootstrap": "4.0.0",
+        "symfony/form": "^3.4",
+        "symfony/validator": "^3.4",
+        "symfony/config": "^3.4",
+        "symfony/twig-bridge": "^3.4"
     }
 }

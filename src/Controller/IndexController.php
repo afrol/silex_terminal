@@ -2,30 +2,94 @@
 
 namespace App\Controller;
 
-use Silex\Application;
-use App\Models\Terminal;
-use Symfony\Component\HttpFoundation\Request;
+use App\Models\Manufacturer;
+use App\Models\Branch;
 
-class IndexController
+use App\Models\Terminal;
+use Silex\Application;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\{
+    ChoiceType,
+    FormType,
+    SubmitType,
+    TextType
+};
+
+
+class IndexController extends BaseController
 {
+    public static $path = 'index';
+    public static $active = 'index';
+    public static $model = 'App\\Models\\Terminal';
+
     public function index(Application $app)
     {
-        $model = new Terminal($app['db']);
+        $model = $this->getModel($app['db']);
         $result = $model->getAll();
 
-        return $app['twig']->render( 'index/index.tpl', ['result' => $result]);
+        return $app['twig']->render(
+            static::$path. '/index.twig',
+            $this->getTwigParams([
+                'result' => $result,
+                'branchList' => array_flip($this->getBranchList($app['db'])),
+                'manufacturerList' => array_flip($this->getManufacturerList($app['db']))
+            ])
+        );
+    }
+
+    public function form(Application $app)
+    {
+        $form = $this->createForm($app['form.factory'], $app['db']);
+        return $app['twig']->render(
+            static::$path. '/form.twig',
+            $this->getTwigParams(['form' => $form->createView()])
+        );
     }
 
     public function store(Application $app, Request $request)
     {
-        $model = new Terminal($app['db']);
+        $form = $this->createForm($app['form.factory'], $app['db']);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $model = $this->getModel($app['db']);
+            $model->save($form->getData());
+        }
 
-var_dump($request->request->all());
+        return $app->redirect('/');
+    }
 
-        $result = $model->save($request->request->all());
+    protected function createForm($appFormFactory, $db)
+    {
+        return $appFormFactory->createBuilder(FormType::class)
+            ->add('code', TextType::class)
+            ->add('manufacturerId', ChoiceType::class, [
+                'choices' => $this->getManufacturerList($db)
+            ])
+            ->add('branchId', ChoiceType::class, [
+                'choices' => $this->getBranchList($db)
+            ])
+            ->add('imgUrl', TextType::class)
+            ->add('status', ChoiceType::class, [
+                'choices' => $this->getTerminalStatusList()
+            ])
+            ->add('save', SubmitType::class, array('label' => 'Create Terminal'))
+            ->getForm();
+    }
 
+    protected function getBranchList($db)
+    {
+        return (new Branch($db))->getBranchList();
+    }
 
-        return $app['twig']->render( 'index/index.tpl', ['result' => $result]);
+    protected function getManufacturerList($db)
+    {
+        return (new Manufacturer($db))->getManufacturerList();
+    }
+
+    protected function getTerminalStatusList()
+    {
+        return array_combine(Terminal::getStatus(), Terminal::getStatus());
     }
 }

@@ -10,13 +10,11 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-use App\Models\Branch;
-
-class StaffController extends BaseController
+class BranchController extends BaseController
 {
-    public static $path = 'staff';
-    public static $active = 'staff';
-    public static $model = 'App\\Models\\Staff';
+    public static $path = 'branch';
+    public static $active = 'branch';
+    public static $model = 'App\\Models\\Branch';
 
     public function index(Application $app)
     {
@@ -25,16 +23,18 @@ class StaffController extends BaseController
 
         return $app['twig']->render(
             static::$path. '/index.twig',
-            $this->getTwigParams([
-                'result' => $result,
-                'branchList' => array_flip($this->getBranchList($app['db']))
-            ])
+            $this->getTwigParams(['result' => $result])
         );
     }
 
     public function form(Application $app)
     {
-        $form = $this->createForm($app['form.factory'], $app['db']);
+        $form = $app['form.factory']->createBuilder(FormType::class)
+            ->add('name', TextType::class)
+            ->add('description', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create Branch'))
+            ->getForm();
+
         return $app['twig']->render(
             static::$path. '/form.twig',
             $this->getTwigParams(['form' => $form->createView()])
@@ -43,7 +43,11 @@ class StaffController extends BaseController
 
     public function store(Application $app, Request $request)
     {
-        $form = $this->createForm($app['form.factory'], $app['db']);
+        $form = $app['form.factory']->createBuilder(FormType::class)
+            ->add('name', TextType::class)
+            ->add('description', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create Branch'))
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -53,22 +57,5 @@ class StaffController extends BaseController
         }
 
         return $app->redirect('/'.self::$path.'/');
-    }
-
-    protected function createForm($appFormFactory, $db)
-    {
-        return $appFormFactory->createBuilder(FormType::class)
-            ->add('branchId', ChoiceType::class, [
-                'choices' => $this->getBranchList($db)
-            ])
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create Staff'))
-            ->getForm();
-    }
-
-    protected function getBranchList($db)
-    {
-        return (new Branch($db))->getBranchList();
     }
 }

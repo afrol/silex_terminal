@@ -1,0 +1,13 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'branch_form' %}
+{% block title %}Branch form{% endblock %}
+{% block content %}
+    <h2>Branch create</h2>
+
+    <form action="/branch/" method="post">
+        {{ form_widget(form) }}
+
+        <input type="submit" name="submit" />
+    </form>
+
+{% endblock %}
