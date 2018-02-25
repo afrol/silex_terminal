@@ -2,20 +2,19 @@
 
 namespace App\Provider;
 
+use App\Controller\BaseController;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
 class BranchControllerProvider extends BaseProvider implements ControllerProviderInterface
 {
-    protected static $controller = 'BranchController';
-
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
-        $controllers->get('/', $this->getPathController(). 'index');
-        $controllers->get('/form', $this->getPathController(). 'form');
-        $controllers->post('/', $this->getPathController(). 'store');
-        $controllers->get('/id', $this->getPathController(). 'show');
+        $controllers->get('/', BaseController::class. '::index');
+        $controllers->get('/form', BaseController::class. '::form');
+        $controllers->post('/', BaseController::class. '::store');
+        $controllers->get('/id', BaseController::class. '::show');
 
         return $controllers;
     }

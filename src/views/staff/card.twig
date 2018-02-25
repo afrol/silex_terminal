@@ -1,0 +1,55 @@
+{% extends 'common/layout.twig' %}
+{% set active = 'manufacturer' %}
+{% block title %}Staff info{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Staff</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Branch</th>
+                        <th>Name</th>
+                        <th>createAt</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ result.staffId }}</td>
+                        <td>{{ branchList[result.branchId] }}</td>
+                        <td>{{ result.firstName }} {{ result.lastName }}</td>
+                        <td>{{ result.createAt }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h2>Terminal list</h2>
+
+                {% if formTerminal %}
+                    <form action="/staff_terminal/" method="post">
+                        {{ form_widget(formTerminal) }}
+                    </form>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% if attachedTerminalList %}
+            {% include 'index/_list.twig' with {'result': attachedTerminalList} %}
+        {% endif %}
+    </div>
+
+{% endblock %}

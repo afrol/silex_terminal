@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-class Staff extends BaseModel implements InterfaceModel
+
+class StaffTerminal extends BaseModel implements InterfaceModel
 {
-    protected $table = 'Staff';
+    protected $table = 'StaffTerminal';
 
     public static $attributes = [
         'staffId',
-        'branchId',
-        'firstName',
-        'lastName'
+        'terminalId',
+        'create_at',
     ];
 
     public function getAll()
@@ -23,16 +23,28 @@ class Staff extends BaseModel implements InterfaceModel
             ->fetchAll();
     }
 
-    public function getOneById($id)
+    public function getStaffById($id)
     {
         return $this->db->createQueryBuilder()
             ->select('*')
             ->from($this->table)
             ->where('staffId = ?')
             ->setParameter(0, $id)
-            ->setMaxResults(1)
+            ->setMaxResults(20)
             ->execute()
-            ->fetch();
+            ->fetchAll();
+    }
+
+    public function getTerminalById($id)
+    {
+        return $this->db->createQueryBuilder()
+            ->select('*')
+            ->from($this->table)
+            ->where('terminalId = ?')
+            ->setParameter(0, $id)
+            ->setMaxResults(20)
+            ->execute()
+            ->fetchAll();
     }
 
     public function save(array $request)

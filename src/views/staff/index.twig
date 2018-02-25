@@ -29,7 +29,7 @@
                 <tbody>
                 {% for item in result %}
                 <tr>
-                    <td>{{ item.staffId }}</td>
+                    <td><a href="/staff/{{ item.staffId }}">{{ item.staffId }}</a></td>
                     <td>{{ branchList[item.branchId] }}</td>
                     <td>{{ item.firstName }} {{ item.lastName }}</td>
                     <td>{{ item.createAt }}</td>

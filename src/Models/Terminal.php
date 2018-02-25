@@ -45,4 +45,16 @@ class Terminal extends BaseModel implements InterfaceModel
             + ['createAt' => (new DateTime())->format('Y-m-d H:i:s')]
         );
     }
+
+    /**
+     * @return array
+     */
+    public function getTerminalList()
+    {
+        $result = $this->getAll();
+        return $result
+            ? array_combine(
+                array_column($result, 'code'), array_column($result, 'terminalId')
+            ) : [];
+    }
 }

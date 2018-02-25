@@ -13,40 +13,7 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>code</th>
-                    <th>manufacturerId</th>
-                    <th>branchId</th>
-                    <th>imgUrl</th>
-                    <th>status</th>
-                    <th>createAt</th>
-                    <th>updateAt</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for key, item in result %}
-                <tr>
-                    <td>{{ item.terminalId }}</td>
-                    <td>{{ item.code }}</td>
-
-                    <td>{{ manufacturerList[item.manufacturerId] }}</td>
-                    <td>{{ branchList[item.branchId] }}</td>
-                    <td>{{ item.imgUrl }}</td>
-                    <td>{{ item.status }}</td>
-                    <td>{{ item.createAt }}</td>
-                    <td>{{ item.updateAt }}</td>
-                </tr>
-                {% endfor %}
-
-                </tbody>
-            </table>
-        </div>
-    </div>
+{% include 'index/_list.twig' with {'result': result} %}
 </div>
 
 {% endblock %}
