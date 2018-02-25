@@ -24,6 +24,15 @@ trait ModelList
     }
 
     /**
+     * @param $db
+     * @return array
+     */
+    protected function getTerminalList($db)
+    {
+        return (new Terminal($db))->getTerminalList();
+    }
+
+    /**
      * @return array
      */
     protected function getTerminalStatusList()

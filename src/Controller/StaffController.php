@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Models\Staff;
+use App\Models\StaffTerminal;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,8 +24,7 @@ class StaffController extends BaseController
 
     public function index(Application $app)
     {
-        $model = $this->getModel($app['db']);
-        $result = $model->getAll();
+        $result = (new Staff($app['db']))->getAll();
 
         return $app['twig']->render(
             static::$path. '/index.twig',
@@ -46,7 +47,6 @@ class StaffController extends BaseController
     public function store(Application $app, Request $request)
     {
         $form = $this->createForm($app['form.factory'], $app['db']);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,6 +55,26 @@ class StaffController extends BaseController
         }
 
         return $app->redirect('/'.self::$path.'/');
+    }
+
+    public function show(Application $app, $id)
+    {
+        $result = (new Staff($app['db']))->getOneById($id);
+
+        if ($result) {
+            $attachedTerminalList = (new StaffTerminal($app['db']))->getStaffById($id);
+        }
+
+        return $app['twig']->render(
+            static::$path. '/card.twig',
+            $this->getTwigParams([
+                'result' => $result,
+                'branchList' => array_flip($this->getBranchList($app['db'])),
+                'manufacturerList' => array_flip($this->getManufacturerList($app['db'])),
+                'attachedTerminalList' => $attachedTerminalList ?? [],
+                'formTerminal' => (new StaffTerminalController())->getForm($id, $app['form.factory'], $app['db'])->createView()
+            ])
+        );
     }
 
     protected function createForm($appFormFactory, $db)
