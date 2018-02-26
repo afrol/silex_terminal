@@ -16,8 +16,8 @@ class StaffTerminalController extends BaseController
 {
     use ModelList;
 
-    public static $path = 'staff_terminal';
-    public static $active = 'staff_terminal';
+    protected static $path = 'staff_terminal';
+    protected static $active = 'staff_terminal';
 
     public function store(Application $app, Request $request)
     {

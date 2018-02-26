@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Models\Terminal;
 use App\Traits\ModelList;
 use Silex\Application;
 
@@ -17,9 +18,9 @@ class IndexController extends BaseController
 {
     use ModelList;
 
-    public static $path = 'index';
-    public static $active = 'index';
-    public static $model = 'App\\Models\\Terminal';
+    protected static $path = 'index';
+    protected static $active = 'index';
+    protected static $model = Terminal::class;
 
     public function index(Application $app)
     {

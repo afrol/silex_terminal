@@ -9,12 +9,12 @@ abstract class BaseController
     /**
      * @var string
      */
-    public static $active = '';
+    protected static $active = '';
 
     /**
      * @var string
      */
-    public static $model = '';
+    protected static $model = '';
 
     /**
      * @param Connection $db

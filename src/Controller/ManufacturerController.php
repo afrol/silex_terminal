@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Models\Manufacturer;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,9 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ManufacturerController extends BaseController
 {
-    public static $path = 'manufacturer';
-    public static $active = 'manufacturer';
-    public static $model = 'App\\Models\\Manufacturer';
+    protected static $path = 'manufacturer';
+    protected static $active = 'manufacturer';
+    protected static $model = Manufacturer::class;
 
     public function index(Application $app)
     {

@@ -18,8 +18,12 @@ class Branch extends BaseModel implements InterfaceModel
      */
     public function getAll()
     {
-        $query = 'SELECT * FROM '.$this->table;
-        return $this->db->fetchAll($query, []);
+        return $this->db->createQueryBuilder()
+            ->select('*')
+            ->from($this->table)
+            ->setMaxResults(20)
+            ->execute()
+            ->fetchAll();
     }
 
     /**

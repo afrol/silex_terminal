@@ -16,8 +16,12 @@ class Manufacturer extends BaseModel implements InterfaceModel
 
     public function getAll()
     {
-        $query = 'SELECT * FROM '.$this->table;
-        return $this->db->fetchAll($query, []);
+        return $this->db->createQueryBuilder()
+            ->select('*')
+            ->from($this->table)
+            ->setMaxResults(20)
+            ->execute()
+            ->fetchAll();
     }
 
     public function save(array $request)

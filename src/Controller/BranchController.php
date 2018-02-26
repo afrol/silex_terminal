@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Models\Branch;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,9 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class BranchController extends BaseController
 {
-    public static $path = 'branch';
-    public static $active = 'branch';
-    public static $model = 'App\\Models\\Branch';
+    protected static $path = 'branch';
+    protected static $active = 'branch';
+    protected static $model = Branch::class;
 
     public function index(Application $app)
     {

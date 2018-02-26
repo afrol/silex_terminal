@@ -4,6 +4,8 @@ return [
     'locale' => 'en',
 
     'basepath' => '/',
+    'domain' => '/',
+
 
     'db.options' => [
         'driver'	=> 'pdo_mysql',

@@ -18,9 +18,9 @@ class StaffController extends BaseController
 {
     use ModelList;
 
-    public static $path = 'staff';
-    public static $active = 'staff';
-    public static $model = 'App\\Models\\Staff';
+    protected static $path = 'staff';
+    protected static $active = 'staff';
+    protected static $model = Staff::class;
 
     public function index(Application $app)
     {
